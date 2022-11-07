@@ -1,32 +1,11 @@
-console.time('time');
 import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 import { Client } from 'ts-postgres';
+import {init} from '../src/db-module/db';
 import S3 from 'aws-sdk/clients/s3';
 
-var s3 = new S3({ apiVersion: '2006-03-01' });
+const s3 = new S3({ apiVersion: '2006-03-01' });
 
-const host: string | undefined = process.env.HOST;
-const port: number | undefined = Number(process.env.PORT);
-const user: string | undefined = process.env.USER;
-const database: string | undefined = process.env.DB;
-
-console.log(host, port, user, database);
-
-const client = new Client({
-    host: host,
-    port: port,
-    user: user,
-    database: database,
-});
-
-
-async function init() {
-    await client.connect();
-}
-
-init();
-
-console.timeEnd('time');
+const client: Client = init();
 
 export const lambdaHandler = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
     console.time('execution time');
