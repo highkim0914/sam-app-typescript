@@ -1,0 +1,17 @@
+version = 0.1
+
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "sam-app-typescript"
+s3_bucket = "s3-for-deploy-clone"
+s3_prefix = "sam-app-typescript"
+region = "ap-northeast-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = []
+
+[default.local_start_api.parameters]
+env_vars = "env/sam_env.json"
+log_file = "logs/local-start-api.log"
